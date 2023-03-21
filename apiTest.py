@@ -3,7 +3,14 @@ import requests
 import pygal
 from lxml import etree
 
-
+def do_another_stock():
+    do_another_stock=True
+    while(do_another_stock):
+        another_stock = input("Would you like to analyze another stock?(y/n): ")
+        if(another_stock=="y"):
+            do_another_stock=main()
+        if(another_stock!="y"):
+            do_another_stock=False
 
 print("Stock Data Visualizer")
 print("----------------------")
