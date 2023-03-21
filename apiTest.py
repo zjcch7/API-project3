@@ -29,13 +29,13 @@ while(True):
         time_series = input("Enter time series function (1-4): ")
         if time_series == "1":
             interval = input("Enter time interval (1min, 5min, 15min, 30min, or 60min): ")
-            url = f"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={symbol}&interval={interval}&apikey=Y7P82MTGYSOW6CEX"
+            url = f"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={stock_symbol}&interval={interval}&apikey=Y7P82MTGYSOW6CEX"
         elif time_series == "2":
-            url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&outputsize=full&symbol={symbol}&apikey=Y7P82MTGYSOW6CEX"
+            url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&outputsize=full&symbol={stock_symbol}&apikey=Y7P82MTGYSOW6CEX"
         elif time_series == "3":
-            url = f"https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol={symbol}&apikey=Y7P82MTGYSOW6CEX"
+            url = f"https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol={stock_symbol}&apikey=Y7P82MTGYSOW6CEX"
         elif time_series == "4":
-            url = f"https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol={symbol}&apikey=Y7P82MTGYSOW6CEX"
+            url = f"https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol={stock_symbol}&apikey=Y7P82MTGYSOW6CEX"
 
         start_date = input("Enter start date (YYYY-MM-DD): ")
         end_date = input("Enter end date (YYYY-MM-DD): ")
