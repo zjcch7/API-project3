@@ -10,7 +10,7 @@ print("----------------------")
 while(True):
     try:
         print(" ")
-        symbol = input("Enter stock symbol: ")
+        stock_symbol = input("Enter stock symbol: ")
         print(" ")
         print("Chart Types")
         print("-------------")
@@ -40,23 +40,23 @@ while(True):
         start_date = input("Enter start date (YYYY-MM-DD): ")
         end_date = input("Enter end date (YYYY-MM-DD): ")
 
-        response = requests.get(url)
-        response.raise_for_status()
+        get_url = requests.get(url)
+        get_url.raise_for_status()
 
-        json_data = response.json()
+        json_data = get_url.json()
         json_key = list(json_data.keys())[1]
         data = json_data[json_key]
 
-        filtered_data = {}
+        data_dict = {}
         if time_series == "intraday":
-            for time_interval, values in data.items():
-                date = time_interval[:10]
+            for intraday_time, values in data.items():
+                date = intraday_time[:10]
                 if start_date <= date <= end_date:
-                    filtered_date[time_interval] = values
+                    data_dict[intraday_time] = values
         else:
             for date, values in data.items():
                 if start_date <= date <= end_date:
-                    filtered_data[date] = values
+                    data_dict[date] = values
 
         sorted_data = sorted(filtered_data.items(), reverse=False)
 
