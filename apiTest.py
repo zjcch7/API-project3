@@ -66,7 +66,7 @@ while(True):
             chart = pygal.Bar(x_label_rotation=20, show_minor_x_labels=True)
 
 
-        chart.title = f"{symbol} Stock: {start_date} to {end_date}"
+        chart.title = f"{stock_symbol} Stock: {start_date} to {end_date}"
         chart.x_labels = [date for date, value in sorted_data]
         chart.add("Open", [float(value["1. open"]) for date, value in sorted_data])
         chart.add("High", [float(value["2. high"])for date, value in sorted_data])
