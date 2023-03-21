@@ -58,7 +58,7 @@ while(True):
                 if start_date <= date <= end_date:
                     data_dict[date] = values
 
-        sorted_data = sorted(filtered_data.items(), reverse=False)
+        sorted_data = sorted(data_dict.items())
 
         if chart_type == "1":
             chart = pygal.Line(x_label_rotation=20, show_minor_x_labels=True)
