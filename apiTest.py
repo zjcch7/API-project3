@@ -2,7 +2,7 @@ from alpha_vantage.timeseries import TimeSeries
 import requests
 import pygal
 import lxml
-
+                    
 def do_another_stock():
     do_another_stock=True
     while(do_another_stock):
@@ -25,7 +25,16 @@ def main():
             print("1: Line")
             print("2: Bar")
             print(" ")
-            chart_type = input("Enter chart type (1, 2): ")
+            while(True):
+                try:
+                    chart_type = int(input("Enter chart type (1, 2): "))
+                    if(chart_type < 1 or chart_type > 2):
+                        print('please enter 1 or 2')
+                        continue
+                except ValueError:
+                        print("Please enter only Numerical values")
+                else:
+                        break
             print(" ")
             print("Select Time Series of the chart you want to Generate")
             print("------------------------------------------------------")
@@ -34,36 +43,43 @@ def main():
             print("3: Weekly")
             print("4: Monthly")
             print(" ")
-            time_series = input("Enter time series function (1-4): ")
-            if time_series == "1":
+            while(True):
+                try:
+                    time_series = int(input("Enter time series function (1-4): "))
+                    if (time_series >4 or time_series <1):
+                        print('Please enter a number 1-4')
+                        continue
+                    
+                except ValueError:
+                        print('Please enter only numerical values')
+                else:
+                    break
+            if time_series == 1:
                 interval = input("Enter time interval (1min, 5min, 15min, 30min, or 60min): ")
                 url = f"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={stock_symbol}&interval={interval}&apikey=Y7P82MTGYSOW6CEX"
-            elif time_series == "2":
+            elif time_series == 2:
                 url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&outputsize=full&symbol={stock_symbol}&apikey=Y7P82MTGYSOW6CEX"
-            elif time_series == "3":
+            elif time_series == 3:
                 url = f"https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol={stock_symbol}&apikey=Y7P82MTGYSOW6CEX"
-            elif time_series == "4":
-                url = f"https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol={stock_symbol}&apikey=Y7P82MTGYSOW6CEX"
-            else:
-                print("Error: invalid time series function")
-                continue
-                
-            
-
-            start_date = input("Enter start date (YYYY-MM-DD): ")
-            end_date = input("Enter end date (YYYY-MM-DD): ")
-            #checks if end_date is less than start_date
-            if end_date < start_date:
-                print("Error: end date cannot be before start date")
-                continue
- 
-            try:
+            elif time_series == 4:
+                url = f"https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol={stock_symbol}&apikey=Y7P82MTGYSOW6CEX"    
+            print(url)
+            while(True):
+                    start_date = input("Enter start date (YYYY-MM-DD): ")
+                    end_date = input("Enter end date (YYYY-MM-DD): ")
+                    #checks if end_date is less than start_date
+                    if end_date < start_date:
+                        print("Error: end date cannot be before start date")
+                        continue
+                    elif end_date > start_date:
+                        break               
+            #try:
                 #using requests, an HTTP GET request is sent to the url that the user picks by selecting a specific time series 
-                get_url = requests.get(url)
+            get_url = requests.get(url)
                 #returns an HTTPError object if an error happens during the HTTP GET process
-                get_url.raise_for_status()
-            except HTTPError as e:
-                print(f"Error retrieving data: {e}")
+            get_url.raise_for_status()
+            #except HTTPError as e:
+                #print(f"Error retrieving data: {e}")
             
 
             #json is used to parse data from get_url that the user wants into the stock_data variable
@@ -88,9 +104,9 @@ def main():
 
             sorted_data = sorted(data_dict.items())
 
-            if chart_type == "1":
+            if chart_type == 1:
                 chart = pygal.Line(x_label_rotation=30, show_minor_x_labels=True)
-            elif chart_type == "2":
+            elif chart_type == 2:
                 chart = pygal.Bar(x_label_rotation=30, show_minor_x_labels=True)
 
             chart.title = f"{stock_symbol} Stock: {start_date} to {end_date}"
